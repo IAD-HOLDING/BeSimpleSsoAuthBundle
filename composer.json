@@ -1,9 +1,9 @@
 {
-    "name": "besimple/sso-auth-bundle",
+    "name": "iad-holding/sso-auth-bundle",
     "type": "symfony-bundle",
     "description": "SSO authentication your Symfony2 project ",
     "keywords": ["CAS", "SSO", "Symfony2", "authentication"],
-    "homepage": "https://github.com/BeSimple/BeSimpleSsoAuthBundle",
+    "homepage": "https://github.com/IAD-HOLDING/BeSimpleSsoAuthBundle",
     "license": "MIT",
     "authors": [
         {
@@ -33,12 +33,7 @@
         "symfony/expression-language": "~2.4"
     },
     "autoload": {
-        "psr-0": { "BeSimple\\SsoAuthBundle": "" }
+        "psr-0": { "iad-holding\\SsoAuthBundle": "" }
     },
-    "target-dir": "BeSimple/SsoAuthBundle",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        }
-    }
+    "target-dir": "iad-holding/SsoAuthBundle"
 }
