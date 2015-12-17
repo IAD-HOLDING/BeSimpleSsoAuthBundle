@@ -10,7 +10,7 @@
         <parameter key="be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.key">64</parameter>
         <parameter key="be_simple.sso_auth.client.option.curlopt_ssl_verifypeer.value">TRUE</parameter>
 		<parameter key="be_simple.sso_auth.client.option.curlopt_sslversion.key">32</parameter>
-        <parameter key="be_simple.sso_auth.client.option.curlopt_sslversion.value">3</parameter>
+        <parameter key="be_simple.sso_auth.client.option.curlopt_sslversion.value">1</parameter>
         <parameter key="be_simple.sso_auth.client.option.curlopt_proxy.key">10004</parameter>
         <parameter key="be_simple.sso_auth.client.option.curlopt_proxy.value"></parameter>
     </parameters>
