@@ -2,8 +2,8 @@
 
 namespace BeSimple\SsoAuthBundle\Sso\Cas;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use BeSimple\SsoAuthBundle\Sso\AbstractServer;
-use BeSimple\SsoAuthBundle\Sso\ServerInterface;
 use Buzz\Message\Request;
 
 /**
@@ -12,10 +12,34 @@ use Buzz\Message\Request;
 class Server extends AbstractServer
 {
     /**
+     * @var RequestStack
+     */
+    protected $requestStack;
+
+    /**
+     * @param RequestStack $requestStack
+     */
+    public function __construct(RequestStack $requestStack)
+    {
+        parent::__construct();
+
+        $this->requestStack = $requestStack;
+    }
+
+    /**
      * @return string
      */
     public function getLoginUrl()
     {
+        if ($this->getConfigValue('send_locale')) {
+            return sprintf(
+                '%s?service=%s&_locale=%s',
+                parent::getLoginUrl(),
+                urlencode($this->getCheckUrl()),
+                $this->requestStack->getCurrentRequest()->getLocale()
+            );
+        }
+
         return sprintf('%s?service=%s', parent::getLoginUrl(), urlencode($this->getCheckUrl()));
     }
 
