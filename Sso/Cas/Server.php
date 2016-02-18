@@ -32,10 +32,13 @@ class Server extends AbstractServer
     public function getLoginUrl()
     {
         if ($this->getConfigValue('send_locale')) {
+            $localeParamName = $this->getConfigValue('locale_param_name') ? $this->getConfigValue('locale_param_name') : 'locale';
+
             return sprintf(
-                '%s?service=%s&_locale=%s',
+                '%s?service=%s&%s=%s',
                 parent::getLoginUrl(),
                 urlencode($this->getCheckUrl()),
+                $localeParamName,
                 $this->requestStack->getCurrentRequest()->getLocale()
             );
         }
