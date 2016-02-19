@@ -15,6 +15,7 @@
         </service>
 
         <service id="be_simple.sso_auth.server.cas" class="%be_simple.sso_auth.server.cas.class%">
+            <argument type="service" id="request_stack" />
             <tag name="be_simple.sso_auth.server" id="cas" />
         </service>
     </services>
