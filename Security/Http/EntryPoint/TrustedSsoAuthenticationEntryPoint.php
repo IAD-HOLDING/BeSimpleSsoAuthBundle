@@ -2,6 +2,7 @@
 
 namespace BeSimple\SsoAuthBundle\Security\Http\EntryPoint;
 
+use BeSimple\SsoAuthBundle\Sso\UrlGeneratorTrait;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use BeSimple\SsoAuthBundle\Sso\Factory;
 
 class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
+    use UrlGeneratorTrait;
     /**
      * @var HttpKernel
      */
@@ -46,8 +48,10 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
     public function start(Request $request, AuthenticationException $authException = null)
     {
         $action  = $this->config['login_action'];
-        $manager = $this->factory->getManager($this->config['manager'], $request->getUriForPath($this->config['check_path']));
-
+        $manager = $this->factory->getManager(
+            $this->config['manager'],
+            $this->generateUrl($request, $this->config['check_path'])
+        );
         if ($action) {
             $subRequest = $request->duplicate(null, null, array(
                 '_controller' => $action,
@@ -55,6 +59,7 @@ class TrustedSsoAuthenticationEntryPoint implements AuthenticationEntryPointInte
                 'request'   => $request,
                 'exception' => $authException,
             ));
+
             return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
         }
 
