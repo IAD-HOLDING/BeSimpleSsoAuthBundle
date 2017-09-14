@@ -2,6 +2,7 @@
 
 namespace BeSimple\SsoAuthBundle\Security\Http\Logout;
 
+use BeSimple\SsoAuthBundle\Sso\UrlGeneratorTrait;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,6 +11,8 @@ use BeSimple\SsoAuthBundle\Sso\Factory;
 
 class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
 {
+    use UrlGeneratorTrait;
+
     /**
      * @var HttpKernel
      */
@@ -45,7 +48,10 @@ class SsoLogoutSuccessHandler implements LogoutSuccessHandlerInterface
     public function onLogoutSuccess(Request $request)
     {
         $action  = $this->config['logout_action'];
-        $manager = $this->factory->getManager($this->config['manager'], $request->getUriForPath($this->config['check_path']));
+        $manager = $this->factory->getManager(
+            $this->config['manager'],
+            $this->generateUrl($request, $this->config['check_path'])
+        );
 
         if ($action) {
             $subRequest = $request->duplicate(null, null, array(
