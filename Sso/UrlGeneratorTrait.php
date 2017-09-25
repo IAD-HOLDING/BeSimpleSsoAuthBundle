@@ -28,7 +28,11 @@ trait UrlGeneratorTrait
     public function generateUrl(Request $request, $path)
     {
         if('/' !== $path[0]) {
-            return $this->urlGenerator->generate($path, [], UrlGeneratorInterface::ABSOLUTE_URL);
+            return $this->urlGenerator->generate(
+                $path,
+                $request->attributes->all(),
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
         }
         return $request->getUriForPath($path);
     }
