@@ -30,7 +30,7 @@ trait UrlGeneratorTrait
         if('/' !== $path[0]) {
             return $this->urlGenerator->generate(
                 $path,
-                $request->attributes->all(),
+                $request->attributes->get('_route_params'),
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
         }
